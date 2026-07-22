@@ -3,14 +3,14 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 
 function App() {
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, watch } = useForm();
+  const city = watch("value");
   const [weather, setWeather] = useState(null);
-
 
   const search = async (city) => {
     try {
       console.log(city.value);
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value}&units=metric&appid=${import.meta.env.VITE_API_ID}`;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city.value.trim()}&units=metric&appid=${import.meta.env.VITE_API_ID}`;
       const response = await fetch(url);
       const data = await response.json();
       setWeather(data);
@@ -23,13 +23,12 @@ function App() {
   console.log(weather);
 
   return (
-    <div className=" h-screen flex justify-center items-center flex-col bg-gradient-to-br  from-slate-900 via-cyan-900 to blue-900 p-5">
+    <div className=" h-screen flex justify-start items-center flex-col bg-gradient-to-br  from-slate-900 via-cyan-900 to blue-900 p-5">
       <form onSubmit={handleSubmit(search)} className="w-full max-w-md">
         <div className="flex items-center bg-white/20 backdrop-blur-md border border-white/30 rounded-full shadow-xl overflow-hidden">
           <input
             type="text"
             spellCheck={false}
-            
             autoCorrect="off"
             placeholder="Search city..."
             className="flex-1 bg-transparent text-white font-semibold placeholder:text-gray-300 px-6 py-4 outline-none border-none focus:bg-transparent focus:outline-none"
@@ -37,8 +36,9 @@ function App() {
           />
 
           <button
+            disabled={city?.trim().length === 0}
             type="submit"
-            className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 transition-all duration-300 rounded-full m-1 shadow-lg hover:scale-110 active:scale-95"
+            className="flex items-center justify-center w-14 h-14 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 transition-all disabled:bg-red-600! duration-300 rounded-full m-1 shadow-lg  active:scale-95 cursor-pointer disabled:cursor-not-allowed"
           >
             <Search size={24} className=" text-white" />
           </button>
