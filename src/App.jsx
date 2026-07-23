@@ -30,7 +30,7 @@ function App() {
             type="text"
             spellCheck={false}
             autoCorrect="off"
-            placeholder="Search city..."
+            placeholder="Search location..."
             className="flex-1 bg-transparent text-white font-semibold placeholder:text-gray-300 px-6 py-4 outline-none border-none focus:bg-transparent focus:outline-none"
             {...register("value")}
           />
