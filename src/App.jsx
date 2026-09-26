@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Search } from "lucide-react";
+import { Search, CloudOff } from "lucide-react";
 import { useState } from "react";
 
 function App() {
@@ -35,8 +35,48 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-cyan-900 to-sky-300 py-8 px-5 flex flex-col items-center">
-      <form onSubmit={handleSubmit(search)} className="w-full max-w-md">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-cyan-900 to-sky-300 py-8 px-5 flex flex-col items-center relative overflow-hidden">
+      <div className="background-clouds">
+        {/* Cloud 1 */}
+        <div className="bg-cloud bg-cloud-1">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        {/* Cloud 2 */}
+        <div className="bg-cloud bg-cloud-2">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        {/* Cloud 3 */}
+        <div className="bg-cloud bg-cloud-3">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        {/* Cloud 4 */}
+        <div className="bg-cloud bg-cloud-4">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        {/* Cloud 5 */}
+        <div className="bg-cloud bg-cloud-5">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
+      <form
+        onSubmit={handleSubmit(search)}
+        className="w-full max-w-md relative z-10"
+      >
         <div className="flex items-center bg-white/20 backdrop-blur-md border border-white/30 rounded-full shadow-xl overflow-hidden ">
           <input
             type="text"
@@ -67,8 +107,34 @@ function App() {
           </div>
         )}
       </form>
+
+      {/* 3D Clouds */}
+
+      <div className="cloud-area relative z-10">
+        <div className="real-cloud cloud-1">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div className="real-cloud cloud-2">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div className="real-cloud cloud-3">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+
       {weather && weather.cod === 200 && (
-        <div className="mt-6 w-full max-w-sm rounded-3xl bg-white/15 backdrop-blur-xl border-2 border-white/30 shadow-2xl shadow-black/40 p-6 text-white transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/30">
+        <div className="relative z-10 mt-2 w-full max-w-sm rounded-3xl bg-white/15 backdrop-blur-xl border-2 border-white/30 shadow-2xl shadow-black/40 p-6 text-white transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/30">
           <div className="flex flex-col items-center">
             <h1 className="text-4xl font-bold">{weather.name}</h1>
 
@@ -115,7 +181,7 @@ function App() {
         </div>
       )}
       {forecast && forecast.cod === "200" && (
-        <div className="mt-8 w-full max-w-6xl flex flex-col  p-6 min-w-[170px] bg-white/10 rounded-2xl">
+        <div className="relative z-10 mt-8 w-full max-w-6xl p-6 bg-white/10 rounded-2xl">
           <h2 className="text-4xl font-bold text-center text-white mb-8">
             5-Day Forecast
           </h2>
@@ -165,8 +231,27 @@ function App() {
         </div>
       )}
       {weather && weather.cod !== 200 && (
-        <div className="mt-8 text-red-400 text-xl font-semibold">
-          ❌ City Not Found
+        <div className="relative z-10 mt-8 w-full max-w-sm">
+          <div className="city-error-card">
+            <div className="error-cloud">
+              <div className="error-icon">
+                <CloudOff size={48} strokeWidth={1.6} />
+              </div>
+            </div>
+
+            <h2 className="text-2xl font-bold text-white mt-5">
+              🌥️ City Not Found ❌
+            </h2>
+            <p className="text-gray-200 mt-2">
+              Hmm... we couldn't find that location.
+            </p>
+
+            <p className="text-sm text-gray-400 mt-1">
+              Check the spelling and try searching again.
+            </p>
+
+            <div className="error-line"></div>
+          </div>
         </div>
       )}
     </div>
